@@ -24,7 +24,8 @@ UserSchema.methods.comparePassword = function comparePassword(password, callback
 
 
 /**
- * The pre-save hook method.
+ * The pre-save hook method. the bcrypt module will generate a hash from a generated earlier salt
+ //string and a user’s password. This hash instead of a user’s password will be saved in the collection.
  */
 UserSchema.pre('save', function saveHook(next) {
   const user = this;
