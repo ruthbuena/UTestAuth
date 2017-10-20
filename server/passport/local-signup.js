@@ -1,5 +1,5 @@
-Passport local strategy for sign up process.  Here LocalStrategy attempts to find data
-in username and pw POST body properties.  Users use email to authenticate themselves. 
+// Passport local strategy for sign up process.  Here LocalStrategy attempts to find data
+// in username and pw POST body properties.  Users use email to authenticate themselves.
 
 const User = require('mongoose').model('User');
 const PassportLocalStrategy = require('passport-local').Strategy;
