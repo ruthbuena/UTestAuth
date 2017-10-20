@@ -1,2 +1,2 @@
 # UTestAuth
-UProject with Authentication
+UProject with Authentication -test
