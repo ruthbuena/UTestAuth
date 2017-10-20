@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import Auth from '../modules/Auth';
 import LoginForm from '../components/LoginForm.js';
 
 
@@ -7,12 +8,21 @@ class LoginPage extends React.Component {
   /**
    * Class constructor.
    */
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
+
+    const storedMessage = localStorage.getItem('successMessage');
+    let successMessage = '';
+
+    if (storedMessage) {
+      successMessage = storedMessage;
+      localStorage.removeItem('successMessage');
+    }
 
     // set the initial component state
     this.state = {
       errors: {},
+      successMessage,
       user: {
         email: '',
         password: ''
@@ -26,7 +36,7 @@ class LoginPage extends React.Component {
   /**
    * Process the form.
    *
-   *  - the JavaScript event object
+   * @param {object} event - the JavaScript event object
    */
   processForm(event) {
     // prevent default action. in this case, action is the form submission event
@@ -51,7 +61,12 @@ class LoginPage extends React.Component {
           errors: {}
         });
 
-        console.log('The form is valid');
+        // save the token
+        Auth.authenticateUser(xhr.response.token);
+
+
+        // change the current URL to /
+        this.context.router.replace('/');
       } else {
         // failure
 
@@ -70,7 +85,7 @@ class LoginPage extends React.Component {
   /**
    * Change the user object.
    *
-   * - the JavaScript event object
+   * @param {object} event - the JavaScript event object
    */
   changeUser(event) {
     const field = event.target.name;
@@ -91,11 +106,16 @@ class LoginPage extends React.Component {
         onSubmit={this.processForm}
         onChange={this.changeUser}
         errors={this.state.errors}
+        successMessage={this.state.successMessage}
         user={this.state.user}
       />
     );
   }
 
 }
+
+LoginPage.contextTypes = {
+  router: PropTypes.object.isRequired
+};
 
 export default LoginPage;
