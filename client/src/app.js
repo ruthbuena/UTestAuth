@@ -12,12 +12,24 @@ injectTapEventPlugin();
 
 // ReactDom.render(<h1>Hello from React</h1>, document.getElementById('react-app'));
 
-ReactDom.render((
-  <MuiThemeProvider muiTheme={getMuiTheme()}>
-    <Router history={browserHistory} routes={routes} />
-  </MuiThemeProvider>), document.getElementById('react-app'));
+// ReactDom.render((
+//   <MuiThemeProvider muiTheme={getMuiTheme()}>
+//     <Router history={browserHistory} routes={routes} />
+//   </MuiThemeProvider>), document.getElementById('react-app'));
+const App = () =>
+<div>
+      // <MuiThemeProvider muiTheme={getMuiTheme()}></MuiThemeProvider>
+        <Router>
+        <Switch>
+        <Route exact path="/" component={LoginForm} />
+        <Route exact path="/BostonCode" component={BostonCode} />
 
-  
+        </Switch>
+        </Router>
+        </div>
+
+  export default App;
+
 // ReactDom.render((
 //     <BrowserRouter>
 //       <App />
